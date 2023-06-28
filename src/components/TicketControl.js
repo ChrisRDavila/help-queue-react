@@ -11,14 +11,22 @@ class TicketControl extends React.Component {
       goDebug:false,
       askedForHelp: false,
       spentTimeDocumenting: false,
-      formVisibleOnPage: false
+      formVisibleOnPage: false,
+      mainTicketList: [] 
     };
     // this.handleClick = this.handleClick.bind(this); 
     // this.handleHelp = this.handleHelp.bind(this);
     // this.handleDocumenting = this.handleDocumenting.bind(this);
   }
 
-
+  handleAddingNewTicketToList = (newTicket) => {
+    const newMainTicketList = this.state.mainTicketList.concat(newTicket);
+    this.setState({
+      mainTicketList: newMainTicketList,
+      formVisibleOnPage: false
+    });
+  }
+  
   handleDebug = () => {
     this.setState(prevState => ({
       goDebug: !prevState.goDebug
@@ -73,12 +81,12 @@ class TicketControl extends React.Component {
         </React.Fragment>
       );
       buttonText = "No";        
-    } else if (!this.state.formVisibleOnPage) {
-      currentlyVisibleState = <TicketList />
-      buttonText = "Add Ticket";
-    } else {
-      currentlyVisibleState = <NewTicketForm />;
+    } else if (this.state.formVisibleOnPage) {
+      currentlyVisibleState = <NewTicketForm onNewTicketCreation={this.handleAddingNewTicketToList} />
       buttonText = "Return to Ticket List";
+    } else {
+      currentlyVisibleState = <TicketList ticketList={this.state.mainTicketList} />; // new code
+      buttonText = "Add Ticket"; 
     }
 
     return (
