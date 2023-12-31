@@ -1,4 +1,6 @@
-# Getting Started with Create React App
+# help-queue.React
+
+example of basic React prject, help queue for submitting issues on tickt to a queue for response
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
